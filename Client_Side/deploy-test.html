@@ -1,0 +1,73 @@
+<html>
+	<head>
+		<script src="JavaScript/plugins/jQuery-1.11.3.js" type="text/javascript"></script>
+		<script>
+		function deployVehicle()
+		{
+			$.ajax({
+				type: 'POST',
+				contentType: 'text/plain',
+				crossDomain:true,
+				url: '/blockchain/chaincode/vehicles',
+				success: function(d) {
+					console.log(d)
+				},
+				error: function(e){
+					console.log(e)
+				},
+				async: false
+			});
+		}
+		
+		function deployEvents()
+		{
+			$.ajax({
+				type: 'POST',
+				contentType: 'text/plain',
+				crossDomain:true,
+				url: '/blockchain/chaincode/events',
+				success: function(d) {
+					console.log(d)
+				},
+				error: function(e){
+					console.log(e)
+				},
+				async: false
+			});
+		}
+		
+		var i = 0;
+		var users = ["DVLA", "Toyota", "Alfa_Romeo", "Jaguar_Land_Rover", "Beechvale_Group", "Milescape", "Viewers_Alfa_Romeo", "LeaseCan", "Every_Car_Leasing", "Regionwide_Vehicle_Contracts", "Joe_Payne", "Andrew_Hurt", "Anthony_O'Dowd", "Cray_Bros_(London)_Ltd", "Aston_Scrap_Centre", "ScrapIt!_UK"]
+		
+		function addUsers(user)
+		{
+			$.ajax({
+				type: 'POST',
+				data: '{"account": "'+user+'", "password":"ibm4you2"}',
+				dataType : 'json',
+				contentType: 'application/json',
+				crossDomain:true,
+				url: '/admin/identity',
+				success: function(d) {
+					console.log(d)
+					i++
+					if(i > users.length -1) {
+						console.log('Done')
+					}
+					else {	addUsers(users[i]) }
+				},
+				error: function(e){
+					console.log(e)
+				},
+				async: false
+			});
+		}
+		
+		</script>
+	</head>
+	<body>
+		<button onclick="deployVehicle()" type="button" >Deploy Vehicle</button>
+		<button onclick="deployEvents()" type="button" >Deploy Events</button>
+		<button onclick="addUsers('DVLA')" type="button" >ADD USERS</button>
+	</body>
+</html>
