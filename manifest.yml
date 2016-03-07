@@ -6,3 +6,5 @@ applications:
   name: APP
   host: APP
   disk_quota: 1024M
+  services:
+   - SERVICE_NAME
